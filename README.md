@@ -27,6 +27,7 @@
 <details open>
 <summary>Используемые технологии</summary>
 <br/>
+   
    * .NET8
    * EF Core
       * npgsql
