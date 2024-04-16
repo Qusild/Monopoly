@@ -28,10 +28,10 @@ _Вывести на экран:_
 <summary>Используемые технологии</summary>
 <br>
    
-*.NET8
-*EF Core
- *npgsql
-*MS Test
+ *.NET8
+ *EF Core
+  *npgsql
+ *MS Test
 </details>
 
 <details open>
