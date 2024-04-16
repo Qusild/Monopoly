@@ -36,6 +36,6 @@ _Вывести на экран:_
 <details open>
 <summary>Перед запуском</summary>
 <br>
-1._Изменить Settings/ConnectionString.txt для соответсвия действительности_
-2._Запустить efbundle.exe для создания соответствующей базы данных_
+1.**Изменить Settings/ConnectionString.txt для соответсвия действительности**
+2.**Запустить efbundle.exe для создания соответствующей базы данных**
 </details>
