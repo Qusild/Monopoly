@@ -27,6 +27,7 @@ _Вывести на экран:_
 <details open>
 <summary>Используемые технологии</summary>
 <br>
+   
 *.NET8
 *EF Core
  *npgsql
@@ -36,6 +37,7 @@ _Вывести на экран:_
 <details open>
 <summary>Перед запуском</summary>
 <br>
+   
 1.**Изменить Settings/ConnectionString.txt для соответсвия действительности**
 2.**Запустить efbundle.exe для создания соответствующей базы данных**
 </details>
