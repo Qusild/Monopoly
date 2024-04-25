@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Models;
 
-public class BoxesRepo : IRepository<Box>
+public class BoxesRepository : IRepository<Box>
 {
     private readonly WareHouseDbContext _dbContext;
 
-    public BoxesRepo(WareHouseDbContext dbContext) => _dbContext = dbContext;
+    public BoxesRepository(WareHouseDbContext dbContext) => _dbContext = dbContext;
 
     public async Task AddAsync(Box box)
     {
@@ -21,6 +21,7 @@ public class BoxesRepo : IRepository<Box>
             box.ExperationDate : pallet.ExperationDate;
         await _dbContext.SaveChangesAsync();
     }
+    
     public async Task DeleteAsync(Guid id)
     {
         var box = _dbContext.Boxes.FirstOrDefault(b => b.Id == id) ?? 

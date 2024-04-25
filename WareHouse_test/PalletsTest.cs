@@ -29,7 +29,7 @@ public class PalletsTest
         var input = new StringReader(testInput.ToString());
         Console.SetIn(input);
         Pallet pallet1 = new Pallet(10,10,10),
-               pallet2 = Pallet.ConsoleCreatePallet();
+               pallet2 = PalletCreator.ConsoleCreate();
         Assert.AreEqual (pallet1.Width, pallet2.Width);
         Assert.AreEqual (pallet1.Length, pallet2.Length);
         Assert.AreEqual (pallet1.Height, pallet2.Height);
@@ -42,7 +42,7 @@ public class PalletsTest
         var input = new StringReader(testInput.ToString());
         Console.SetIn(input);
         Pallet pallet1 = new Pallet(10,10,10),
-               pallet2 = Pallet.ConsoleCreatePallet();
+               pallet2 = PalletCreator.ConsoleCreate();
         Assert.AreEqual (pallet1.Width, pallet2.Width);
         Assert.AreEqual (pallet1.Length, pallet2.Length);
         Assert.AreEqual (pallet1.Height, pallet2.Height);
@@ -55,7 +55,7 @@ public class PalletsTest
         var input = new StringReader(testInput.ToString());
         Console.SetIn(input);
         Pallet pallet1 = new Pallet(10,10,10),
-               pallet2 = Pallet.ConsoleCreatePallet();
+               pallet2 = PalletCreator.ConsoleCreate();
         Assert.AreEqual (pallet1.Width, pallet2.Width);
         Assert.AreEqual (pallet1.Length, pallet2.Length);
         Assert.AreEqual (pallet1.Height, pallet2.Height);
@@ -68,7 +68,7 @@ public class PalletsTest
         var input = new StringReader(testInput.ToString());
         Console.SetIn(input);
         Pallet pallet1 = new Pallet(10,10,10),
-               pallet2 = Pallet.ConsoleCreatePallet();
+               pallet2 = PalletCreator.ConsoleCreate();
         Assert.AreEqual (pallet1.Width, pallet2.Width);
         Assert.AreEqual (pallet1.Length, pallet2.Length);
         Assert.AreEqual (pallet1.Height, pallet2.Height);
@@ -78,10 +78,10 @@ public class PalletsTest
     {
         using (WareHouseDbContext db = new WareHouseDbContext())
         {
-            PalletsRepo palletsRepo = new PalletsRepo(db);
+            PalletsRepository palletsRepository = new PalletsRepository(db);
             Pallet pallet = new Pallet(100,100,100);
-            await palletsRepo.AddAsync(pallet);
-            List<Pallet> pallets = await palletsRepo.GetAll();
+            await palletsRepository.AddAsync(pallet);
+            List<Pallet> pallets = await palletsRepository.GetAll();
             Assert.IsTrue(pallets.Contains(pallet));
         }
     }
@@ -91,11 +91,11 @@ public class PalletsTest
     {
         using (WareHouseDbContext db = new WareHouseDbContext())
         {
-            PalletsRepo palletsRepo = new PalletsRepo(db);
+            PalletsRepository palletsRepository = new PalletsRepository(db);
             Pallet pallet = new Pallet(100,100,100);
-            await palletsRepo.AddAsync(pallet);
-            await palletsRepo.AddAsync(pallet);
-            List<Pallet> pallets = await palletsRepo.GetAll();
+            await palletsRepository.AddAsync(pallet);
+            await palletsRepository.AddAsync(pallet);
+            List<Pallet> pallets = await palletsRepository.GetAll();
             Assert.IsTrue(pallets.Contains(pallet));
         }
     }
@@ -104,8 +104,8 @@ public class PalletsTest
     {
         using (WareHouseDbContext db = new WareHouseDbContext())
         {
-            PalletsRepo palletsRepo = new PalletsRepo(db);
-            BoxesRepo boxesRepo = new BoxesRepo(db);
+            PalletsRepository palletsRepo = new PalletsRepository(db);
+            BoxesRepository boxesRepo = new BoxesRepository(db);
             Pallet pallet1 = new Pallet(100,100,100),
                 pallet2 = new Pallet(10,10,10),
                 pallet3 = new Pallet(100,100,100),
@@ -134,8 +134,8 @@ public class PalletsTest
     {
         using (WareHouseDbContext db = new WareHouseDbContext())
         {
-            PalletsRepo palletsRepo = new PalletsRepo(db);
-            BoxesRepo boxesRepo = new BoxesRepo(db);
+            PalletsRepository palletsRepository = new PalletsRepository(db);
+            BoxesRepository boxesRepository = new BoxesRepository(db);
             Pallet pallet1 = new Pallet(10,10,10),
                 pallet2 = new Pallet(10,10,10),
                 pallet3 = new Pallet(10,10,10),
@@ -144,15 +144,15 @@ public class PalletsTest
                 box2 = new Box(pallet2.Id,10,10,10,10000,DateOnly.FromDateTime(DateTime.Now).AddYears(2010)),
                 box3 = new Box(pallet3.Id,10,10000,10,1000,DateOnly.FromDateTime(DateTime.Now).AddYears(2001)),
                 box4 = new Box(pallet4.Id,10,1000,10,10001,DateOnly.FromDateTime(DateTime.Now).AddYears(2010));
-            await palletsRepo.AddAsync(pallet1);
-            await boxesRepo.AddAsync(box1);
-            await palletsRepo.AddAsync(pallet2);
-            await boxesRepo.AddAsync(box2);
-            await palletsRepo.AddAsync(pallet3);
-            await boxesRepo.AddAsync(box3);
-            await palletsRepo.AddAsync(pallet4);
-            await boxesRepo.AddAsync(box4);
-            List<Pallet> ans = await palletsRepo.GetAll();
+            await palletsRepository.AddAsync(pallet1);
+            await boxesRepository.AddAsync(box1);
+            await palletsRepository.AddAsync(pallet2);
+            await boxesRepository.AddAsync(box2);
+            await palletsRepository.AddAsync(pallet3);
+            await boxesRepository.AddAsync(box3);
+            await palletsRepository.AddAsync(pallet4);
+            await boxesRepository.AddAsync(box4);
+            List<Pallet> ans = await palletsRepository.GetAll();
             Assert.IsTrue(ans[0].Id == pallet1.Id);
             Assert.IsTrue(ans[2].Id == pallet2.Id);
             Assert.IsTrue(ans[1].Id == pallet3.Id);

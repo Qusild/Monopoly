@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Models;
 
-public class PalletsRepo : IRepository<Pallet>
+public class PalletsRepository : IRepository<Pallet>
 {
     private readonly WareHouseDbContext _dbContext;
 
-    public PalletsRepo(WareHouseDbContext dbContext) => _dbContext = dbContext;
+    public PalletsRepository(WareHouseDbContext dbContext) => _dbContext = dbContext;
 
     public async Task<List<Pallet>> GetAll()
     {
@@ -17,6 +17,7 @@ public class PalletsRepo : IRepository<Pallet>
                         .ThenBy(p => p.Weight + p.Boxes.Sum(b=> b.Weight))
                         .ToListAsync();
     }
+
     public async Task<List<Pallet>> GetPalletsWithTheLongestLifeTimeBoxes()
     {
         return await _dbContext.Pallets
@@ -28,6 +29,7 @@ public class PalletsRepo : IRepository<Pallet>
                         .OrderBy(p => p.Height*p.Width*p.Length + p.Boxes.Sum(b => b.Height*b.Width*b.Length))
                         .ToListAsync();
     }
+
     public async Task AddAsync(Pallet pallet)
     {
         if (_dbContext.Pallets.Where(p => p.Id == pallet.Id).Count()>0)
@@ -35,6 +37,7 @@ public class PalletsRepo : IRepository<Pallet>
         await _dbContext.Pallets.AddAsync(pallet);
         await _dbContext.SaveChangesAsync();
     }
+
     public async Task DeleteAsync(Guid id)
     {
         var pallet = _dbContext.Pallets.FirstOrDefault(p => p.Id == id) ?? 

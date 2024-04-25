@@ -10,8 +10,8 @@ class Program
         {
             //Точки вместо запятых для разделения
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-            PalletsRepo palletsRepo = new PalletsRepo(db);
-            BoxesRepo boxesRepo= new BoxesRepo(db);
+            PalletsRepository palletsRepo = new PalletsRepository(db);
+            BoxesRepository boxesRepo= new BoxesRepository(db);
             List<Pallet> pallets;
             while (true)
             {
@@ -32,11 +32,11 @@ class Program
                         switch (input)
                         {
                             case 1: 
-                                Pallet tmpPallet = Pallet.ConsoleCreatePallet();
+                                Pallet tmpPallet = PalletCreator.ConsoleCreate();
                                 await palletsRepo.AddAsync(tmpPallet);
                                 break;
                             case 2:
-                                Box tmpBox = Box.ConsoleCreateBox();
+                                Box tmpBox = BoxCreator.ConsoleCreate();
                                 await boxesRepo.AddAsync(tmpBox);
                                 break;
                             case 3:
